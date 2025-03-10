@@ -5,7 +5,7 @@
             <input type="text" pInputText formControlName="titol" id="title"/>
             <label for="title">Títol*</label>
          </p-floatlabel>
-         <p-message *ngIf="formGroup.get('titol')?.invalid && formGroup.get('titol')?.touched" severity="error" variant="simple" size="small">
+         <p-message *ngIf="formGroup.hasError('required','titol') && formGroup.get('titol')?.touched" severity="error" variant="simple" size="small">
             Obligatori
          </p-message>
       </div>
@@ -13,7 +13,7 @@
    <div class="form-row">
       <div class="input field-30">
          <p-floatlabel variant="in">
-            <p-select inputId="study" formControlName="estudi" [options]="validStudies" appendTo="body" scrollHeight="auto" showClear></p-select>
+            <p-select inputId="study" formControlName="estudi" [options]="validStudies" appendTo="body" scrollHeight="auto" showClear (onChange)="getStudentsByStudy($event)"></p-select>
             <label for="study">Estudi*</label>
          </p-floatlabel>
          <p-message *ngIf="formGroup.get('estudi')?.invalid && formGroup.get('estudi')?.touched" severity="error" variant="simple" size="small">
@@ -32,15 +32,22 @@
    </div>
    <div *ngIf="tab === 'student'" class="form-row">
       <div class="input">
-         <p-multiselect
-            formControlName="alumnesAsignats"
-            [options]="students" 
-            [group]="true" 
-            placeholder="Alumnes" 
-            appendTo="body"
-            scrollHeight="250px" 
-            display="chip">
-         </p-multiselect>
+         <p-floatlabel variant="in">
+            <p-multiselect
+               [loading]="studentsLoading"
+               inputId="alumnesIds"
+               formControlName="alumnesIds"
+               [options]="students" 
+               appendTo="body"
+               scrollHeight="250px" 
+               emptyMessage="Selecciona un estudi"
+               display="chip">
+            </p-multiselect>
+            <label for="alumnesIds">Alumnes</label>
+         </p-floatlabel>
+         <p-message *ngIf="formGroup.get('alumnesIds')?.invalid && formGroup.get('alumnesIds')?.touched" severity="error" variant="simple" size="small">
+            Obligatori
+         </p-message>
       </div>
    </div>
 </form>

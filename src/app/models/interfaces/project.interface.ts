@@ -3,7 +3,7 @@ import { Attachment } from "./attachment.interface";
 
 export interface ProjectList {
   centre: Project[];
-  alumne: Project[];  
+  alumns: Project[];  
 }
 
 export interface Project {

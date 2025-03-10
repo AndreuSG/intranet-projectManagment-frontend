@@ -4,14 +4,14 @@
     <back-button></back-button>
   </div>
 
-  <p-selectbutton [options]="tabs" [(ngModel)]="tab" optionLabel="label" optionValue="value" [allowEmpty]="false"/> 
+  <p-selectbutton [options]="tabs" [(ngModel)]="tab" optionLabel="label" optionValue="value" [allowEmpty]="false" (onChange)="onTabChange($event)"/> 
 </div>
 <div class="page-subheader">
   <shared-search-bar placeholder="Cercar projectes..." (search)="search=$event"></shared-search-bar>
 
   <div class="extra-actions">
     <div class="paginator">
-      <p-paginator 
+      <p-paginator
         [rows]="pageSize" 
         [totalRecords]="filteredProjects.length" 
         (onPageChange)="onPageChange($event)" 
@@ -22,7 +22,7 @@
       ></p-paginator>
     </div>
     <shared-course-filter (courseSelected)="selectedStudy = $event"></shared-course-filter>
-    <shared-button text="Afegir projecte" icon="plus" type="success" (click)="openProjectFormDialog()"></shared-button>
+    <shared-button text="Afegir projecte" icon="plus" type="success" (click)="addProject()"></shared-button>
   </div>
 </div>
 

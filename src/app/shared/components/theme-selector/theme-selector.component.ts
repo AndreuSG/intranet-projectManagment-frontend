@@ -12,8 +12,9 @@ export class ThemeSelectorComponent {
   isDarkMode = false;
 
   constructor(private cookieService: CookieService) {
-    this.isDarkMode = this.cookieService.get('dark-mode') === 'true';
-    document.querySelector('html')!.classList.toggle('dark-mode', this.isDarkMode);
+    if (this.cookieService.get('dark-mode') === 'true') {
+      this.toggleTheme();
+    };
   }
 
   toggleTheme() {

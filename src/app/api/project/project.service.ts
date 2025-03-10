@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../api.service';
 import { map, Observable } from 'rxjs';
-import { Project, ProjectDetail, ProjectList } from '../../models/interfaces/project.interface';
+import { Project, ProjectDetail, ProjectList, StudentProject } from '../../models/interfaces/project.interface';
 import { API_URLS } from '../../shared/api-routes.const';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class ProjectService extends ApiService {
     return this.get(`${route}/${id}`).pipe(map((res) => res as ProjectDetail));
   }
 
-  create(project: Project, type: 'school' | 'student'): Observable<Project> {
+  create(project: Project | StudentProject, type: 'school' | 'student'): Observable<Project> {
     const route = type === 'school' ? API_URLS.SCHOOL_PROJECTS : API_URLS.STUDENT_PROJECTS;
     return this.post(route, project).pipe(map((res) => res as Project));
   }

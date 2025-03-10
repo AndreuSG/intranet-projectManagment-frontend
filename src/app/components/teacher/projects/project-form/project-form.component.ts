@@ -4,7 +4,7 @@ import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModu
 import { InputTextModule } from 'primeng/inputtext';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FloatLabelModule } from 'primeng/floatlabel';
-import { Select } from 'primeng/select';
+import { Select, SelectChangeEvent } from 'primeng/select';
 import { ButtonComponent } from "../../../../shared/components/button/button.component";
 import { StudyService } from '../../../../api/study/study.service';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -12,7 +12,7 @@ import { MessageModule } from 'primeng/message';
 import { NgIf } from '@angular/common';
 import { StudentService } from '../../../../api/student/student.service';
 import { Student } from '../../../../models/interfaces/student.interface';
-import { SelectItemGroup } from 'primeng/api';
+import { SelectItem, SelectItemGroup } from 'primeng/api';
 import { MultiSelectModule } from 'primeng/multiselect';
 
 
@@ -38,8 +38,9 @@ export class ProjectFormComponent {
 
   validStudies: Study[] = [];
 
-  students: SelectItemGroup[] = [];
-  selectedStudents: Student[] = [];
+  students: SelectItem<number>[] = [];
+  studentsLoading: boolean = false;
+  selectedIds: number[] = [];
 
   @Input()
   tab: 'school' | 'student' = 'school';
@@ -56,12 +57,34 @@ export class ProjectFormComponent {
       error: (error) => {
         this.validStudies = Object.values(Study);
       }
-    });
+    });    
+  }
 
+  ngOnInit() {
     this.buildFormGroup();
   }
 
-  buildFormGroup(): void {
+  getStudentsByStudy(event: SelectChangeEvent) {
+    const { value: study } = event;
+    this.studentsLoading = true;
+
+    this.studentService.findByStudy(study).subscribe({
+      next: (students) => {
+        this.students = students.map(student => (
+          {
+            label: student.nom_complet,
+            value: student.id
+          }
+        ));
+        this.studentsLoading = false;
+      },
+      error: () => {
+        this.studentsLoading = false;
+      }
+    })
+  }
+
+  private buildFormGroup(): void {
     this.formGroup = new FormGroup({
       titol: new FormControl<string>('', [Validators.required]),
       estudi: new FormControl<Study | null>(null, [Validators.required, this.validCourseValidator.bind(this)]),
@@ -69,18 +92,18 @@ export class ProjectFormComponent {
     });
 
     if (this.tab === 'student') {
-      this.formGroup.addControl('alumnesAsignats', new FormControl<Student[]>([], [Validators.required]));
+      this.formGroup.addControl('alumnesIds', new FormControl<Student[]>([], [Validators.required]));
     }
   }
 
-  validCourseValidator(control: AbstractControl): ValidationErrors | null {
+  private validCourseValidator(control: AbstractControl): ValidationErrors | null {
     if (!this.validStudies.includes(control.value)) {
       return { invalidCourse: true };
     }
     return null;
   }
 
-  startDateValidator(control: AbstractControl): ValidationErrors | null {
+  private startDateValidator(control: AbstractControl): ValidationErrors | null {
     const dateRange = control.value as Date[];
 
     if (!dateRange || dateRange.length < 2) {

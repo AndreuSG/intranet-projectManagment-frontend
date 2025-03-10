@@ -6,14 +6,15 @@ import { ButtonComponent } from "../../../shared/components/button/button.compon
 import { CourseFilterComponent } from "../../../shared/components/course-filter/course-filter.component";
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ProjectFormComponent } from '../../../components/teacher/projects/project-form/project-form.component';
-import { Project, ProjectList } from '../../../models/interfaces/project.interface';
+import { Project, ProjectList, StudentProject } from '../../../models/interfaces/project.interface';
 import { StudyService } from '../../../api/study/study.service';
 import { Study } from '../../../models/enums/study.enum';
 import { ProjectService } from '../../../api/project/project.service';
 import { AuthService } from '../../../auth/auth.service';
-import { PaginatorModule } from 'primeng/paginator';
-import { SelectButtonModule } from 'primeng/selectbutton';
+import { PaginatorModule, PaginatorState } from 'primeng/paginator';
+import { SelectButtonChangeEvent, SelectButtonModule } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-project',
@@ -38,7 +39,7 @@ export class ProjectComponent implements OnDestroy {
     { label: 'Alumne', value: 'student' },
   ]
 
-  allProjects: ProjectList = { centre: [], alumne: [] };
+  allProjects: ProjectList = { centre: [], alumns: [] };
   schoolProjects: Project[] = [];
   studentProjects: Project[] = [];
 
@@ -59,12 +60,18 @@ export class ProjectComponent implements OnDestroy {
     private studyService: StudyService,
     private projectService: ProjectService,
     private authService: AuthService,
+    private cookieService: CookieService
   ) {
     this.loadProjectes();
 
     this.studyService.findByTeacher().subscribe(studies => {
       this.studies = studies;
     });
+
+    const tab = this.cookieService.get('projectTab') as 'school' | 'student';
+    if (tab) {
+      this.tab = tab;
+    }
   }
 
   get filteredProjects(): Project[] {
@@ -93,17 +100,22 @@ export class ProjectComponent implements OnDestroy {
   loadProjectes(): void {
     this.projectService.findAll().subscribe((projects) => {
       this.allProjects = projects;
-      this.studentProjects = projects.alumne || [];
+      this.studentProjects = projects.alumns || [];
       this.schoolProjects = projects.centre || [];
       this.isLoading = false;
     });
   }
 
-  onPageChange(event: any): void {
-    this.currentPage = event.page;
+  onPageChange(event: PaginatorState): void {
+    this.currentPage = event.page!;
   }
 
-  openProjectFormDialog(): void {
+  onTabChange(event: SelectButtonChangeEvent): void {
+    this.tab = event.value as 'school' | 'student';
+    this.cookieService.set('projectTab', this.tab);
+  }
+
+  addProject(): void {
     if (this.projectFormDialogRef) return;
 
     this.projectFormDialogRef = this.dialogService.open(ProjectFormComponent, {
@@ -111,19 +123,16 @@ export class ProjectComponent implements OnDestroy {
       width: '400px',
       height: this.tab === 'school' ? '35vh' : '45vh',
       modal: true,
-      dismissableMask: true,
       closable: true,
       inputValues: {
         tab: this.tab,
       }
     });
 
-    this.projectFormDialogRef.onClose.subscribe((result?: Project) => {
+    this.projectFormDialogRef.onClose.subscribe((result?: Project | StudentProject) => {
       if (result) {
-        console.log(result);
         this.isLoading = true;
-        const projecte = this.tab === 'school' ? { ...result, creatPer: this.authService.getId() } : result;
-        this.projectService.create(projecte, this.tab).subscribe(() => {
+        this.projectService.create({ ...result, creatPer: this.authService.getId() }, this.tab).subscribe(() => {
           this.loadProjectes();
         });
       }
