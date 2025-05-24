@@ -20,4 +20,16 @@ export const TEACHER_ROUTES: Routes = [
       canActivate: [RoleGuard],
       data: { roles: ['profe'] }
    },
+   { 
+      path: 'rubriques',
+      loadComponent: () => import('../pages/teacher/rubrics/rubrics.component').then(mod => mod.RubricsComponent),
+      canActivate: [RoleGuard],
+      data: { roles: ['profe'] }
+   },
+   {
+      path: 'rubriques/:id',
+      loadComponent: () => import('../pages/teacher/rubrics/rubrics-group-detail/rubrics-detail.component').then(mod => mod.RubricsDetailComponent),
+      canActivate: [RoleGuard],
+      data: { roles: ['profe'] }
+   }
 ]

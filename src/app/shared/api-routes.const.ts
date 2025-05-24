@@ -9,4 +9,11 @@ export const API_URLS = {
   MODULES: `/curr-moduls`,
   CONFIRM_MODULES: `/selected-moduls`,
   STUDIES: `/group_study`,
+  RUBRICS: {
+    BASE: `/rubrics`,
+    COURSES: `/rubrics/courses`,
+    CRITERIA: `/rubrics/criteris`,
+    RUBRIC_CRITERION: '/rubric-criterion',
+    RUBRIC_LEVEL: '/rubrics/levels',
+  },
 }

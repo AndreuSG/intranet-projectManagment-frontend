@@ -1,0 +1,27 @@
+<div *ngIf="!isLoading; else loading" class="rubrics-group-detail-list">
+    <div class="grid">
+        <p-card *ngFor="let rubric of rubrics" (click)="onSelect(rubric)" tabindex="0">
+            <ng-template pTemplate="content">
+                <div class="card-header">
+                    <span class="category">Puntuació màxima: {{ rubric.puntuacioMax }}</span>
+                </div>
+                <div class="card-body">
+                    <h2>{{ rubric.nom.length > 40 ? (rubric.nom | slice:0:37) + '…' : rubric.nom }}</h2>
+                    <div class="creator">{{ rubric.descripcio || '—' }}</div>
+                </div>
+                <div class="card-footer">
+                    <i class="pi pi-arrow-right"></i>
+                </div>
+            </ng-template>
+        </p-card>
+    </div>
+    <div *ngIf="rubrics.length === 0" class="no-results">
+        No hi ha rúbriques en aquest grup
+    </div>
+</div>
+
+<ng-template #loading>
+    <div class="loading-overlay">
+        <p-progress-spinner ariaLabel="loading"></p-progress-spinner>
+    </div>
+</ng-template>

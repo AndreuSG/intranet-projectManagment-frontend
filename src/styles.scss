@@ -1,5 +1,5 @@
 @import "primeicons/primeicons.css";
-
+@import "primeflex/primeflex.css";
 :root {
   --p-button-primary-background: #6c6c99 !important;
   --p-button-primary-border-color: #6c6c99 !important;
@@ -121,5 +121,87 @@ footer {
   }
 }
 
+/* ---------- diálogo base ---------- */
+.criteria-dialog.p_dialog {
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(44, 62, 80, .18);
+}
 
+/* ---------- cabecera ---------- */
+.criteria-dialog .p-dialog-header {
+  padding: 1.5rem 0rem 1rem 2.5rem;
+}
 
+.criteria-dialog .p-dialog-title {
+  color: #6c63ff;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+
+/* ---------- contenido ---------- */
+.criteria-dialog .p-dialog-content {
+  padding: 2rem 2.5rem;
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+}
+
+/* ---------- campos ---------- */
+.criteria-dialog .field {
+  margin-bottom: 2rem;
+}
+
+.criteria-dialog .p-float-label,
+.criteria-dialog .p-float-label > * { width: 100%; }
+
+.criteria-dialog input,
+.criteria-dialog textarea,
+.criteria-dialog .p-inputnumber,
+.criteria-dialog .p-inputnumber-input {
+  width: 100%;
+  border: 1.5px solid #444;
+  border-radius: .7rem;
+  font-size: 1.05rem;
+  padding: .7rem 1rem;
+}
+
+.criteria-dialog .p-float-label > label {
+  color: #b0b3b8;
+  left: 1rem;
+  top: 1.1rem;
+}
+
+/* ---------- botones ---------- */
+.criteria-dialog .dialog-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.criteria-dialog .p-button {
+  min-width: 110px;
+  border-radius: .5rem;
+}
+
+.criteria-dialog .p-button-text { color: #6c63ff; }
+
+.criteria-dialog .p-button[disabled] {
+  opacity: .6; cursor: not-allowed;
+}
+
+.dark-mode .criteria-dialog input,
+.dark-mode .criteria-dialog textarea,
+.dark-mode .criteria-dialog .p-inputnumber,
+.dark-mode .criteria-dialog .p-inputnumber-input {
+  background: #23232a !important;
+  color: #f3f4f6 !important;
+  border: 1.5px solid #888 !important;
+}
+
+.dark-mode .criteria-dialog input::placeholder,
+.dark-mode .criteria-dialog textarea::placeholder,
+.dark-mode .criteria-dialog .p-inputnumber-input::placeholder {
+  color: #888 !important;
+  opacity: 1;
+}

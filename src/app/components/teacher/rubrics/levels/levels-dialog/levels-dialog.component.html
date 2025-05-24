@@ -1,0 +1,31 @@
+<div class="p-d-flex p-jc-between p-ai-center p-mb-3">
+    <h3 class="p-m-0">Nivells de criteri</h3>
+    <button pButton label="Afegir nivell" icon="pi pi-plus" (click)="openAddLevel()" class="p-button-sm"></button>
+</div>
+<p-table [value]="levels" [responsiveLayout]="'scroll'">
+    <ng-template pTemplate="header">
+        <tr>
+            <th class="text-center">Nom</th>
+            <th class="text-center">Descripció</th>
+            <th class="text-center">Puntuació</th>
+            <th class="text-center">Accions</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-level>
+        <tr>
+            <td class="text-center">{{ level.nom }}</td>
+            <td class="text-center">{{ level.descripcio || '-' }}</td>
+            <td class="text-center">{{ level.valor }}</td>
+            <td class="text-center">
+                <button pButton icon="pi pi-trash" class="p-button-text p-button-danger"
+                    (click)="deleteLevel(level)"></button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="3">No hi ha nivells</td>
+        </tr>
+    </ng-template>
+</p-table>
+<p-confirmDialog></p-confirmDialog>

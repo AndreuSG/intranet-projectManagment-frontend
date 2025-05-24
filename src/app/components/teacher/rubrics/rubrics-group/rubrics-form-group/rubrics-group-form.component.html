@@ -1,0 +1,19 @@
+<form [formGroup]="formGroup" class="p-fluid" (ngSubmit)="onSave()">
+  <div class="field">
+    <p-floatLabel class="w-full">
+      <input pInputText id="name" class="w-full" formControlName="name" />
+      <label for="name">Nom del grup *</label>
+    </p-floatLabel>
+    <p-message *ngIf="formGroup.get('name')?.errors?.['required'] && formGroup.get('name')?.touched" severity="error" text="Obligatori"></p-message>
+  </div>
+  <div class="field">
+    <p-floatLabel class="w-full">
+      <textarea pInputTextarea id="desc" class="w-full" rows="3" formControlName="description"></textarea>
+      <label for="desc">Descripció</label>
+    </p-floatLabel>
+  </div>
+  <div class="dialog-buttons">
+    <button pButton type="button" label="Cancel·lar" icon="pi pi-times" (click)="onCancel()"></button>
+    <button pButton type="submit" label="Guardar" icon="pi pi-save" [disabled]="formGroup.invalid"></button>
+  </div>
+</form>

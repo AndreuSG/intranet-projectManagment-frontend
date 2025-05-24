@@ -1,0 +1,32 @@
+<form [formGroup]="form" class="p-fluid" (ngSubmit)="save()">
+
+    <!-- NOM -->
+    <div class="field">
+        <p-floatLabel class="w-full">
+            <input pInputText id="nom" class="w-full" formControlName="nom" />
+            <label for="nom">Nom *</label>
+        </p-floatLabel>
+    </div>
+
+    <!-- DESCRIPCIÓ -->
+    <div class="field">
+        <p-floatLabel class="w-full">
+            <textarea pInputTextarea id="desc" class="w-full" rows="3" formControlName="descripcio"></textarea>
+            <label for="desc">Descripció</label>
+        </p-floatLabel>
+    </div>
+
+    <!-- PES -->
+    <div class="field">
+        <p-floatLabel class="w-full">
+            <input pInputNumber id="pes" class="w-full" formControlName="pes" [min]="0" [max]="100" suffix=" %" />
+            <label for="pes">Pes %</label>
+        </p-floatLabel>
+    </div>
+
+    <!-- BOTONES -->
+    <div class="dialog-buttons">
+        <button pButton type="button" label="Cancel·lar" class="p-button-text" (click)="cancel()"></button>
+        <button pButton type="submit" label="Guardar" [disabled]="form.invalid"></button>
+    </div>
+</form>
