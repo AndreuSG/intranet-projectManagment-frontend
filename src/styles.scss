@@ -103,6 +103,7 @@ footer {
   width: 100%;
   position: fixed;
   bottom: 0;
+  z-index: 1000;
 
   .footer-container {
     font-family: 'Poppins', sans-serif;

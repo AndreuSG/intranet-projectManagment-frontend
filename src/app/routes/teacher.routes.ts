@@ -31,5 +31,11 @@ export const TEACHER_ROUTES: Routes = [
       loadComponent: () => import('../pages/teacher/rubrics/rubrics-group-detail/rubrics-detail.component').then(mod => mod.RubricsDetailComponent),
       canActivate: [RoleGuard],
       data: { roles: ['profe'] }
+   },
+   {
+      path: 'calendari',
+      loadComponent: () => import('../pages/teacher/calendar/calendar.component').then(mod => mod.CalendarComponent),
+      canActivate: [RoleGuard],
+      data: { roles: ['profe'] }
    }
 ]
