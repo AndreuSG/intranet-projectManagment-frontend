@@ -28,10 +28,8 @@ form {
 }
 
 .dialog-footer {
-   position: absolute;
-   bottom: 15px;
-   right: 15px;
    display: flex;
    justify-content: flex-end;
    gap: 1rem;
+   margin-top: 1rem;
 }

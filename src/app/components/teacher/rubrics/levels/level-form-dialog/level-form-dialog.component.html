@@ -1,0 +1,22 @@
+<form [formGroup]="form" class="p-fluid" (ngSubmit)="save()">
+  <div class="p-field">
+    <label for="nom">Nom *</label>
+    <input id="nom" pInputText formControlName="nom" maxlength="100" />
+    <small *ngIf="form.get('nom')?.invalid && form.get('nom')?.touched" class="p-error">El nom és obligatori</small>
+  </div>
+  <div class="p-field">
+    <label for="descripcio">Descripció</label>
+    <textarea id="descripcio" pInputTextarea formControlName="descripcio" rows="2"></textarea>
+  </div>
+  <div class="p-field">
+    <label for="valor">Puntuació *</label>
+    <p-inputNumber id="valor" formControlName="valor" [min]="0" [max]="maxScore" [showButtons]="true" [step]="1"></p-inputNumber>
+    <small *ngIf="form.get('valor')?.invalid && form.get('valor')?.touched" class="p-error">
+      Ha de ser un valor enter entre 0 i {{ maxScore | number:'1.0-0' }}
+    </small>
+  </div>
+  <div class="buttons">
+    <button pButton type="button" label="Cancel·lar" class="p-button-text p-mr-2" (click)="cancel()"></button>
+    <button pButton type="submit" label="Guardar" [disabled]="form.invalid"></button>
+  </div>
+</form>

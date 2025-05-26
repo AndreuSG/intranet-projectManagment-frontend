@@ -1,0 +1,33 @@
+/* anchura y sombra del diálogo */
+.rubric-dialog .p-dialog {
+    max-width: 28rem;
+    border-radius: 12px;
+    box-shadow: 0 12px 24px rgba(0,0,0,.15);
+  }
+  
+  /* panel interior */
+  .rubric-dialog .p-dialog-content {
+    padding: 1.5rem 2rem;
+  }
+  
+  /* layout del formulario */
+  .form-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  
+    .form-row {
+      width: 100%;
+  
+      p-floatlabel,
+      p-floatlabel > * { width: 100%; }
+    }
+  
+    .dialog-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+  }
+  

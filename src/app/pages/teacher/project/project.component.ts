@@ -139,6 +139,4 @@ export class ProjectComponent implements OnDestroy {
       this.projectFormDialogRef = undefined;
     });
   }
-
-
 }

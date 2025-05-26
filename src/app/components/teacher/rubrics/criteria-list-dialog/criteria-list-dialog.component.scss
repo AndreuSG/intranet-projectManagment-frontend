@@ -1,0 +1,65 @@
+.criteria-dialog {
+    min-width: 28rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .title {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1f2937;
+        /* slate‑800 */
+    }
+
+    .add-btn {
+        font-size: .85rem;
+    }
+}
+
+/* tabla */
+:host ::ng-deep .p-table {
+    .p-column-header-content {
+        justify-content: flex-start;
+    }
+
+    .p-table-tbody>tr>td {
+        vertical-align: middle;
+    }
+
+    th,
+    td {
+        padding: .75rem 1rem !important;
+    }
+}
+
+/* texto vacío */
+.empty-msg {
+    margin: 1rem 0 0;
+    color: #6b7280;
+    /* slate‑500 */
+    text-align: center;
+}
+
+/* spinner centrado */
+.center-spinner {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+/* utilidades rápidas */
+.w-7rem {
+    width: 7rem;
+}
+
+.w-4rem {
+    width: 4rem;
+}
+
+.text-right {
+    text-align: right;
+}

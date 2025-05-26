@@ -12,5 +12,12 @@ export const API_URLS = {
   CONFIG: `/config`,
   COURSES: '/cursos-grups',
   PROJECT_MODULE_DATES: '/dates-modul-projectes',
-  SCHEDULE: '/schedule'
+  SCHEDULE: '/schedule',
+  RUBRICS: {
+    BASE: `/rubrics`,
+    COURSES: `/rubrics/courses`,
+    CRITERIA: `/rubrics/criteris`,
+    RUBRIC_CRITERION: '/rubric-criterion',
+    RUBRIC_LEVEL: '/rubrics/levels',
+  },
 }

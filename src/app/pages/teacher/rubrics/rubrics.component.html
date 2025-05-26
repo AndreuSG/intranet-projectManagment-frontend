@@ -1,0 +1,18 @@
+<div class="page-header">
+    <div class="page-title">
+        <h1>Grups de rúbriques</h1>
+        <back-button></back-button>
+    </div>
+
+    <div class="extra-actions">
+        <shared-button 
+            text="Afegir grup de rúbriques"
+            icon="plus"
+            type="success"
+            (click)="onAddGroup()">
+        </shared-button>
+    </div>
+</div>
+
+<rubric-group-list [groups]="rubricGroups" [isLoading]="isLoading" (groupSelected)="onGroupSelected($event)"> </rubric-group-list>
+
