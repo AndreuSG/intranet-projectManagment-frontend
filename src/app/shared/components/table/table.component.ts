@@ -13,10 +13,10 @@ import { Student } from '../../../models/interfaces/student.interface';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent {
-  @Input() 
+  @Input()
   students: Student[] = [];
 
-  @Input({required: true}) 
+  @Input({required: true})
   type!: 'admin' | 'attendance';
 
   @Input({required: true})
@@ -33,7 +33,7 @@ export class TableComponent {
   getColumns(): { field: string, header: string }[] {
     if (this.type === 'admin') {
       return [
-        { field: 'estudis', header: 'Estudis' },
+        { field: 'course', header: 'Curs' },
         { field: 'idalu', header: 'IDALU' },
         { field: 'nom_complet', header: 'Nom complet' },
         { field: 'email', header: 'Email' },

@@ -1,0 +1,29 @@
+<div class="page-header">
+  <div class="page-title">
+    <h1>Control d'assistència</h1>
+    <back-button></back-button>
+  </div>
+
+  <div class="page-actions">
+    <shared-button (click)="modulesConfigModal = true" icon="cog" text="Configuració dates moduls" />
+  </div>
+</div>
+
+<div class="page-subheader">
+  <div class="extra-actions">
+    <p-select [options]="courses" [showClear]="true" [(ngModel)]="selectedCourse" [ngModelOptions]="{standalone: true}"
+      (onChange)="onCourseChange($event.value)" optionLabel="id" placeholder="Selecciona un grup" />
+
+    <p-datepicker [disabled]="!selectedCourse" [(ngModel)]="selectedDate" dateFormat="dd/mm/yy"
+      placeholder="Selecciona data" (onSelect)="onDateChange($event)" [ngModelOptions]="{ standalone: true }"
+      [showIcon]="true" [disabledDays]="[0,6]"></p-datepicker>
+
+    <p-select [disabled]="!selectedDate" [options]="availableFranges" [(ngModel)]="selectedFranja"
+      placeholder="Selecciona franja" [ngModelOptions]="{ standalone: true }" (onChange)="onFranjaChange($event.value)"></p-select>
+
+    <p-select [disabled]="!selectedFranja" [options]="availableModules" [(ngModel)]="selectedModule"
+      optionLabel="nom" placeholder="Selecciona mòdul" [ngModelOptions]="{ standalone: true }"></p-select>
+  </div>
+</div>
+
+<app-modules-config *ngIf="modulesConfigModal" (onConfirm)="onConfirmModulesConfig()"></app-modules-config>

@@ -26,6 +26,9 @@ export class ButtonComponent {
   @Input()
   type: 'primary' | 'secondary' | 'danger' | 'success' = 'primary';
 
+  @Input()
+  disabled = false;
+
   @Output()
   click = new EventEmitter<MouseEvent>();
 

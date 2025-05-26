@@ -4,25 +4,31 @@
     <back-button></back-button>
   </div>
 
-  <app-module-selector (onConfirm)="findStudents()"></app-module-selector>
+  <div class="page-actions">
+    <shared-button (click)="selectModulesModal = true" icon="th-large" text="Selecció de moduls de projecte" />
+    <shared-button (click)="configSetterModal = true" icon="cog" text="Parametres" />
+  </div>
 </div>
 
 <div class="page-subheader">
   <shared-search-bar placeholder="Cercar estudiants..." (search)="onSearch($event)"></shared-search-bar>
 
   <div class="extra-actions">
-    <shared-course-filter (courseSelected)="onFilter($event)" [studies]="studentsStudies"></shared-course-filter>
-    <p-button label="Donar de baixa" icon="pi pi-user-minus" (click)="unenrollStudents()" severity="danger" [disabled]="selectedStudents.length === 0" class="button"></p-button>
+    <shared-course-filter (courseSelected)="onFilter($event)" [courses]="courses"></shared-course-filter>
+    <shared-button (click)="unenrollStudents()" icon="user-minus" text="Donar de baixa" type="danger" [disabled]="selectedStudents.length === 0" class="button"></shared-button>
   </div>
 </div>
 
 <div class="page-content">
   <shared-table
-    [loading]="loading" 
-    [students]="filteredStudents" 
-    scrollHeight="65vh"
-    (changeStudentsSelected)="selectedStudents = $event" 
-    type="admin"
-    >
-  </shared-table>
+  [loading]="loading"
+  [students]="filteredStudents"
+  scrollHeight="65vh"
+  (changeStudentsSelected)="selectedStudents = $event"
+  type="admin"
+  >
+</shared-table>
 </div>
+
+<app-module-selector *ngIf="selectModulesModal" (onConfirm)="onConfirmModules()"></app-module-selector>
+<app-config-setter *ngIf="configSetterModal" (onConfirm)="onConfirmConfig()"></app-config-setter>
