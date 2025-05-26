@@ -1,0 +1,21 @@
+<div class="page-header">
+    <div class="page-title">
+        <h1>Rúbriques</h1>
+        <back-button></back-button>
+    </div>
+    <div class="extra-actions">
+        <shared-button 
+            text="Afegir rúbrica"
+            icon="plus"
+            type="success"
+            (click)="onAddRubric()">
+        </shared-button>
+    </div>
+</div>
+
+<rubrics-group-detail-list 
+    [rubrics]="rubrics" 
+    [isLoading]="isLoading"
+    (rubricSelected)="onRubricSelected($event)">
+</rubrics-group-detail-list>
+

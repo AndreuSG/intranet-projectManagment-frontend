@@ -1,0 +1,52 @@
+<form [formGroup]="form" class="form-layout">
+
+    <!-- NOM -->
+    <div class="form-row">
+      <p-floatlabel class="w-full">
+        <input pInputText id="name" formControlName="name" class="w-full" />
+        <label for="name">Nom *</label>
+      </p-floatlabel>
+  
+      <p-message *ngIf="form.get('name')?.touched && form.get('name')?.invalid"
+                severity="error"
+                text="Obligatori"></p-message>
+    </div>
+  
+    <!-- DESCRIPCIÓ -->
+    <div class="form-row">
+      <p-floatlabel class="w-full">
+        <textarea pInputTextarea id="desc"
+                  rows="3" class="w-full"
+                  formControlName="description"></textarea>
+        <label for="desc">Descripció</label>
+      </p-floatlabel>
+    </div>
+  
+    <!-- PUNTUACIÓ -->
+    <div class="form-row">
+      <p-floatlabel class="w-full">
+        <input pInputText id="max"
+              type="number" class="w-full"
+              formControlName="maxScore" />
+        <label for="max">Puntuació màxima</label>
+      </p-floatlabel>
+    </div>
+  
+    <!-- BOTONES -->
+    <div class="dialog-footer">
+        <shared-button text="Cancel·lar"
+            icon="times"
+            type="secondary"
+            (click)="cancel()">
+        </shared-button>
+  
+        <shared-button
+            text="Guardar"
+            icon="save"
+            type="success"
+            (click)="save()">
+        </shared-button>
+
+    </div>
+  </form>
+  

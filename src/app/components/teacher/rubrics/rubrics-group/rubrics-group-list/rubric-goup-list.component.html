@@ -1,0 +1,32 @@
+<!-- rubrics-group-list.component.html -->
+<div *ngIf="!isLoading; else loading" class="rubric-group-list">
+  <div class="grid">
+    <p-card
+      *ngFor="let group of groups"
+      (click)="onSelect(group.id!)"
+      tabindex="0"
+    >
+      <ng-template pTemplate="content">
+        <div class="card-header">
+          <span class="category">Grup</span>
+        </div>
+        <div class="card-body">
+          <h2>{{ group.name.length > 40 ? (group.name | slice:0:37) + '…' : group.name }}</h2>
+          <div class="creator">{{ group.description || '—' }}</div>
+        </div>
+        <div class="card-footer">
+          <i class="pi pi-arrow-right"></i>
+        </div>
+      </ng-template>
+    </p-card>
+  </div>
+  <div *ngIf="groups.length === 0" class="no-results">
+    No hi ha grups de rúbriques
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="loading-overlay">
+    <p-progress-spinner ariaLabel="loading"></p-progress-spinner>
+  </div>
+</ng-template>
