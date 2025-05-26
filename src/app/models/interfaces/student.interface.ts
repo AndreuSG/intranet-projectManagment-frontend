@@ -6,4 +6,5 @@ export interface Student {
   nom_complet: string;
   email: string;
   estudis: Study;
+  course: string;
 }

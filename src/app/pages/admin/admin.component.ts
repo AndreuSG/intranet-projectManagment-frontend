@@ -5,36 +5,44 @@ import { SearchBarComponent } from "../../shared/components/search-bar/search-ba
 import { TableComponent } from "../../shared/components/table/table.component";
 import { Button } from "primeng/button";
 import { Student } from '../../models/interfaces/student.interface';
-import { Study } from '../../models/enums/study.enum';
 import { ModuleSelectorComponent } from "../../components/admin/module-selector/module-selector.component";
 import { CourseFilterComponent } from "../../shared/components/course-filter/course-filter.component";
 import { StudentService } from '../../api/student/student.service';
+import { CommonModule } from '@angular/common';
+import { ConfigSetterComponent } from "../../components/admin/config-setter/config-setter.component";
+import { ButtonComponent } from "../../shared/components/button/button.component";
 
 @Component({
   standalone: true,
   selector: 'app-admin',
   imports: [
+    CommonModule,
     MatIconModule,
     BackButtonComponent,
     Button,
     SearchBarComponent,
     TableComponent,
     ModuleSelectorComponent,
-    CourseFilterComponent
+    CourseFilterComponent,
+    ConfigSetterComponent,
+    ButtonComponent,
 ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss'
 })
 export class AdminComponent implements OnInit {
   students: Student[] = [];
-  studentsStudies: Study[] = [];
+  courses: string[] = [];
   filteredStudents: Student[] = [...this.students];
   selectedStudents: Student[] = [];
 
   searchQuery: string = '';
-  selectedStudy: string = '';
+  selectedCourse: string = '';
 
   loading!: boolean;
+
+  selectModulesModal = false;
+  configSetterModal = false;
 
   constructor(private studentService: StudentService) {}
 
@@ -46,8 +54,8 @@ export class AdminComponent implements OnInit {
     this.loading = true;
 
     this.studentService.findAll().subscribe(students => {
+      this.courses = [...new Set(students.map(student => student.course))];
       this.students = students;
-      this.studentsStudies = [...new Set(students.map(student => student.estudis))];
       this.filteredStudents = [...students];
       this.loading = false;
     });
@@ -61,8 +69,17 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  onConfirmModules() {
+    this.selectModulesModal = false;
+    this.findStudents();
+  }
+
+  onConfirmConfig() {
+    this.configSetterModal = false;
+  }
+
   onFilter(value: string) {
-    this.selectedStudy = value;
+    this.selectedCourse = value;
     this.applyFilters();
   }
 
@@ -75,15 +92,15 @@ export class AdminComponent implements OnInit {
   applyFilters() {
     this.filteredStudents = this.students.filter(student => {
       const matchesSearch = this.searchQuery
-      ? student.nom_complet.toLowerCase().includes(this.searchQuery) || 
-        student.email.toLowerCase().includes(this.searchQuery) || 
+      ? student.nom_complet.toLowerCase().includes(this.searchQuery) ||
+        student.email.toLowerCase().includes(this.searchQuery) ||
         student.idalu.toString().includes(this.searchQuery)
       : true;
 
-      const matchesCourse = (this.selectedStudy === 'Tots els estudis' || !this.selectedStudy) 
-      ? true 
-      : student.estudis === this.selectedStudy as Study;
-      
+      const matchesCourse = (this.selectedCourse === 'Tots els cursos' || !this.selectedCourse)
+      ? true
+      : student.course === this.selectedCourse;
+
       return matchesSearch && matchesCourse;
     });
   }

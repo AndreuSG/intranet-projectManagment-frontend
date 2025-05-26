@@ -7,6 +7,7 @@ import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { HttpInterceptorService } from './core/http-interceptor.service';
+import { ca } from "primelocale/ca.json"
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,6 +16,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(withInterceptorsFromDi()),
     providePrimeNG({
+      translation: ca,
       theme: {
         options: {
           darkModeSelector: '.dark-mode'

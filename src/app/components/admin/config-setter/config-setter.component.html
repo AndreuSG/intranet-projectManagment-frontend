@@ -1,0 +1,29 @@
+<p-dialog [(visible)]="visible" header="Configuració de l'aplicació" [modal]="true" (onHide)="onConfirm.emit()">
+  <form *ngIf="formGroup" [formGroup]="formGroup">
+    <p-table [value]="configs">
+      <ng-template #header>
+        <tr>
+          <th>Codi</th>
+          <th>Valor</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-config>
+        <tr>
+          <td>{{ configTranslations[config.code] }}</td>
+          <td>
+            @switch (config.code) {
+            @case (configEnum.DATA_INICI_FI_CURS) {
+            <p-datepicker [formControlName]="config.code" dateFormat="dd/mm/yy" [showTime]="false" selectionMode="range"
+              [readonlyInput]="true" appendTo="body"></p-datepicker>
+            }
+            }
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </form>
+  <ng-template #footer>
+    <shared-button text="Guardar" icon="save" type="success" (click)="saveConfigs()" />
+    <shared-button text="Cancelar" icon="times" type="danger" (click)="onConfirm.emit()" />
+  </ng-template>
+</p-dialog>

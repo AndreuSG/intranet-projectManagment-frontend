@@ -9,6 +9,12 @@ export const TEACHER_ROUTES: Routes = [
       data: { roles: ['profe'] }
    },
    {
+      path: 'control-assistencia',
+      loadComponent: () => import('../pages/teacher/attendance/attendance.component').then(mod => mod.AttendanceComponent),
+      canActivate: [RoleGuard],
+      data: { roles: ['profe'] }
+   },
+   {
       path: 'projectes',
       loadComponent: () => import('../pages/teacher/project/project.component').then(mod => mod.ProjectComponent),
       canActivate: [RoleGuard],

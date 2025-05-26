@@ -9,4 +9,8 @@ export const API_URLS = {
   MODULES: `/curr-moduls`,
   CONFIRM_MODULES: `/selected-moduls`,
   STUDIES: `/group_study`,
+  CONFIG: `/config`,
+  COURSES: '/cursos-grups',
+  PROJECT_MODULE_DATES: '/dates-modul-projectes',
+  SCHEDULE: '/schedule'
 }

@@ -76,6 +76,11 @@ main {
     align-items: center;
     gap: 20px;
   }
+
+  .page-actions {
+    display: flex;
+    gap: 10px;
+  }
 }
 
 .page-subheader {
@@ -106,13 +111,13 @@ footer {
 
   .footer-container {
     font-family: 'Poppins', sans-serif;
-    
+
     p {
       display: flex;
       align-items: center;
       gap: 10px;
       justify-content: center;
-      
+
       .names {
         font-weight: 600;
         font-size: 18px;

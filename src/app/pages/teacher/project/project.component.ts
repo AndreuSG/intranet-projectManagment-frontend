@@ -3,7 +3,6 @@ import { ProjectListComponent } from "../../../components/teacher/projects/proje
 import { BackButtonComponent } from "../../../shared/components/back-button/back-button.component";
 import { SearchBarComponent } from "../../../shared/components/search-bar/search-bar.component";
 import { ButtonComponent } from "../../../shared/components/button/button.component";
-import { CourseFilterComponent } from "../../../shared/components/course-filter/course-filter.component";
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ProjectFormComponent } from '../../../components/teacher/projects/project-form/project-form.component';
 import { Project, ProjectList, StudentProject } from '../../../models/interfaces/project.interface';
@@ -15,6 +14,7 @@ import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { SelectButtonChangeEvent, SelectButtonModule } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { StudyFilterComponent } from "../../../shared/components/study-filter/study-filter.component";
 
 @Component({
   selector: 'app-project',
@@ -23,11 +23,11 @@ import { CookieService } from 'ngx-cookie-service';
     BackButtonComponent,
     SearchBarComponent,
     ButtonComponent,
-    CourseFilterComponent,
     PaginatorModule,
     SelectButtonModule,
-    FormsModule
-  ],
+    FormsModule,
+    StudyFilterComponent
+],
   providers: [DialogService],
   templateUrl: './project.component.html',
   styleUrl: './project.component.scss'
@@ -76,7 +76,7 @@ export class ProjectComponent implements OnDestroy {
 
   get filteredProjects(): Project[] {
     const projects = this.tab === 'school' ? this.schoolProjects : this.studentProjects;
-    
+
     return projects
       .filter(project =>
         this.selectedStudy === 'Tots els estudis' || project.estudi === this.selectedStudy
@@ -140,5 +140,5 @@ export class ProjectComponent implements OnDestroy {
     });
   }
 
-  
+
 }

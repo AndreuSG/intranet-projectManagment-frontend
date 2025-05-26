@@ -38,7 +38,7 @@ export class HttpInterceptorService implements HttpInterceptor {
       catchError((err: HttpErrorResponse) => this.handleError(err))
     );
   }
-  
+
 
   private httpHeaderAddToken(request: HttpRequest<any>): HttpRequest<any> {
 
@@ -47,11 +47,11 @@ export class HttpInterceptorService implements HttpInterceptor {
     }
 
     let headers = request.headers;
-  
+
     if (!(request.body instanceof FormData)) {
       headers = headers.set('content-type', 'application/json');
     }
-  
+
     const token: string | null = localStorage.getItem('localAuthToken');
     if (token) {
       headers = headers.set('Authorization', `Bearer ${token}`);

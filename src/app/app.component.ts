@@ -21,6 +21,11 @@ export class AppComponent {
   private intranetMessageListener = (event: MessageEvent) => {
     if (event.origin !== 'https://sapalomera.cat/intranet') {
       console.error('Origen no permitido:', event.origin);
+
+      if (localStorage.getItem('localAuthToken')) {
+        window.removeEventListener('message', this.intranetMessageListener);
+      }
+
       return;
     }
 

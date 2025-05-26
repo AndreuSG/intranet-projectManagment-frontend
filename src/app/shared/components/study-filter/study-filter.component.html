@@ -1,0 +1,4 @@
+<div class="study-filter">
+  <p-menu #menu [model]="studiesList" [popup]="true" />
+  <p-button [label]="selectedStudy" [icon]="'pi pi-' + (selectedStudy === defaultStudy ? 'filter' : 'filter-fill')" (click)="menu.toggle($event)"></p-button>
+</div>
