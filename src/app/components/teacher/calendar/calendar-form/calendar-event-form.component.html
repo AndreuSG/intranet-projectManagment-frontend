@@ -1,0 +1,39 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-5">
+    <div>
+        <label for="title" class="block font-medium mb-1">Títol</label>
+        <input pInputText id="title" formControlName="title" required class="w-full" />
+    </div>
+
+    <div>
+        <label for="description" class="block font-medium mb-1">Descripció</label>
+        <textarea pInputTextarea id="description" formControlName="description" rows="2" class="w-full"></textarea>
+    </div>
+
+    <div>
+        <label for="start_hour" class="block font-medium mb-1">Hora d'inici</label>
+        <p-calendar id="start_hour" formControlName="start_hour" [timeOnly]="true" hourFormat="24" [showOnFocus]="false"
+            [touchUI]="false" dataType="date" [style]="{ width: '100%' }" [inputStyle]="{ width: '100%' }">
+        </p-calendar>
+    </div>
+
+    <div>
+        <label for="end_hour" class="block font-medium mb-1">Hora de finalització</label>
+        <p-calendar id="end_hour" formControlName="end_hour" [timeOnly]="true" hourFormat="24" [showOnFocus]="false"
+            [touchUI]="false" dataType="date" [style]="{ width: '100%' }" [inputStyle]="{ width: '100%' }">
+        </p-calendar>
+    </div>
+
+    <div>
+        <label for="color" class="block font-medium mb-1">Color</label>
+        <p-colorPicker id="color" formControlName="color" [style]="{ width: '2.5rem', height: '2.5rem' }"
+            class="align-middle"></p-colorPicker>
+    </div>
+
+    <div class="flex justify-end gap-3 pt-2">
+        <button pButton type="submit" label="Guardar" [disabled]="form.invalid" class="w-32"></button>
+        <button pButton type="button" label="Cancel·lar" class="p-button-secondary w-32" (click)="cancel()"></button>
+        <button *ngIf="event" pButton type="button" label="Eliminar" class="p-button-danger w-32" (click)="deleteEvent()"></button>
+    </div>
+</form>
+
+<p-confirmDialog></p-confirmDialog>

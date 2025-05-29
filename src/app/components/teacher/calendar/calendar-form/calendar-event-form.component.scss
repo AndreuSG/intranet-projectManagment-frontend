@@ -1,0 +1,15 @@
+:host {
+    ::ng-deep {
+        .p-calendar {
+            width: 100%;
+            
+            .p-inputtext {
+                width: 100%;
+            }
+        }
+        
+        .p-calendar-panel {
+            z-index: 1100;
+        }
+    }
+}

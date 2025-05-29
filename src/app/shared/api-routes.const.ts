@@ -20,4 +20,5 @@ export const API_URLS = {
     RUBRIC_CRITERION: '/rubric-criterion',
     RUBRIC_LEVEL: '/rubrics/levels',
   },
+  CALENDAR_EVENTS: `/calendar-events`,
 }
