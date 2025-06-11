@@ -69,6 +69,7 @@ export class ModulesConfigComponent {
       this.modules = modules;
       this.limitDates = limitDates;
       this.existingDates = existingDates;
+      console.log(this.existingDates);
 
       this.modulesCourses = this.assignCoursesToModules(this.modules, this.courses);
       this.createFormGroup(existingDates);
@@ -137,7 +138,9 @@ export class ModulesConfigComponent {
     if (existing) {
       this.projectModuleDateService.update(existing.id, payload as UpdateProjectModuleDate).subscribe();
     } else {
-      this.projectModuleDateService.create(payload as CreateProjectModuleDate).subscribe();
+      this.projectModuleDateService.create(payload as CreateProjectModuleDate).subscribe((projectModuleDate) => {
+        this.existingDates.push(projectModuleDate);
+      });
     }
   }
 

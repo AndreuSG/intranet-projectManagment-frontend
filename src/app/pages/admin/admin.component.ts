@@ -19,7 +19,6 @@ import { ButtonComponent } from "../../shared/components/button/button.component
     CommonModule,
     MatIconModule,
     BackButtonComponent,
-    Button,
     SearchBarComponent,
     TableComponent,
     ModuleSelectorComponent,
