@@ -4,7 +4,7 @@ import { Module } from "./module.interface";
 export interface Schedule {
   id: number;
   assignatura: string;
-  currModul: Module;
+  currModul: ScheduleModule;
   color: string;
   profe: string;
 
@@ -21,4 +21,12 @@ export interface Schedule {
   ini: number;
 
   fin: number;
+}
+
+export interface ScheduleModule {
+  id: number;
+  nom: string;
+  sigles: string;
+  curs: number;
+  ordre: number;
 }

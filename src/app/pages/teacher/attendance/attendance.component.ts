@@ -51,12 +51,12 @@ export class AttendanceComponent implements OnInit {
   modules: Module[] = [];
 
   courses: Course[] = [];
-  selectedCourse: Course | null = null;
+  selectedCourse?: Course;
 
-  selectedDate: Date | null = null;
-  selectedFranja: number | null = null;
+  selectedDate?: Date;
+  selectedFranja?: number;
 
-  selectedModule: Module | null = null;
+  selectedModule?: Module;
 
   schedules: Schedule[] = [];
 
@@ -124,9 +124,9 @@ export class AttendanceComponent implements OnInit {
     if (!course) return;
 
     this.selectedCourse = course;
-    this.selectedDate = null;
-    this.selectedFranja = null;
-    this.selectedModule = null;
+    this.selectedDate = undefined;
+    this.selectedFranja = undefined;
+    this.selectedModule = undefined;
 
     const pmForGroup = this.projectModuleDates
       .filter(pmd => pmd.idGrup === course.id)
@@ -139,8 +139,8 @@ export class AttendanceComponent implements OnInit {
 
   onDateChange(date: Date) {
     this.selectedDate = date;
-    this.selectedFranja = null;
-    this.selectedModule = null;
+    this.selectedFranja = undefined;
+    this.selectedModule = undefined;
 
     const jsDay = date.getDay();
     const scheduleDay = (jsDay + 6) % 7;
@@ -153,7 +153,7 @@ export class AttendanceComponent implements OnInit {
     ).sort((a, b) => a.franja - b.franja);
 
     const mapFr = schedFiltered.map(s => ({
-      label: `${this.formatTime(s.ini)} – ${this.formatTime(s.fin)}`,
+      label: `${this.formatTime(s.ini)} - ${this.formatTime(s.fin)}`,
       value: s.franja
     }));
 
@@ -164,25 +164,22 @@ export class AttendanceComponent implements OnInit {
 
   onFranjaChange(franja: number): void {
     this.selectedFranja = franja;
-    this.selectedModule = null;
+    this.selectedModule = undefined;
 
     const jsDay = this.selectedDate!.getDay();
     const scheduleDay = (jsDay + 6) % 7;
 
     const courseId = this.selectedCourse!.id.split(' ').join('');
 
-    const schedFiltered = this.schedules.filter(s =>
+    const schedFiltered = this.schedules.find(s =>
       s.grup === (courseId.includes('SMX') ? courseId : courseId.slice(0, -1)) &&
       s.dia === scheduleDay &&
       s.franja === franja
     );
 
     console.log(schedFiltered);
+    this.selectedModule = this.modules.find(m => m.idmodul === schedFiltered?.currModul.id);
     console.log(this.modules);
-
-    this.availableModules = schedFiltered
-      .map(s => this.modules.find(m => m.idmodul === s.currModul.idmodul))
-      .filter((m): m is Module => !!m);
   }
 
   onConfirmModulesConfig() {

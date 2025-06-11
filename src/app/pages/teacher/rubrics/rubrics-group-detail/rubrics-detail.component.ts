@@ -25,7 +25,7 @@ export class RubricsDetailComponent implements OnInit {
     isLoading = false;
 
     constructor(
-        private route: ActivatedRoute, 
+        private route: ActivatedRoute,
         private dialogService: DialogService,
         private rubricsService: RubricsService
     ) {}
@@ -60,7 +60,7 @@ export class RubricsDetailComponent implements OnInit {
                     }
                 });
             }
-            this.ref = undefined; 
+            this.ref = undefined;
         });
     }
 
@@ -69,7 +69,8 @@ export class RubricsDetailComponent implements OnInit {
             header: `Criteris – ${rubric.nom}`,
             width:  '40rem',
             data:   { rubricId: rubric.id, maxScore: rubric.puntuacioMax },
-            closable: true
+            closable: true,
+            modal: true
         });
     }
 
